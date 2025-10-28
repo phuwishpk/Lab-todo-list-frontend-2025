@@ -1220,6 +1220,15 @@ https://your-username.github.io/todo-frontend/
 ```bash
 # บันทึกรูปผลการรันหน้า Front-end ที่นี่
 ```
+![alt text](image-6.png)
+
+![alt text](image-7.png)
+
+![alt text](image-8.png)
+
+![alt text](image-9.png)
+
+![alt text](image-10.png)
 
 ## ส่วนที่ 11: Troubleshooting
 
@@ -1281,6 +1290,8 @@ Access to XMLHttpRequest has been blocked by CORS policy
 }
 ```
 ---
+
+![alt text](image-11.png)
 
 ## ส่วนที่ 13: สรุปและ Architecture
 
@@ -1372,41 +1383,41 @@ todo-frontend/
 
 ### Pre-deployment Checklist
 
-- [ ] Node.js 18+ ติดตั้งแล้ว
-- [ ] Git ติดตั้งแล้ว
-- [ ] GitHub Account พร้อม
-- [ ] Backend API ทำงานปกติ
-- [ ] CORS ตั้งค่าถูกต้อง
+- [x] Node.js 18+ ติดตั้งแล้ว
+- [x] Git ติดตั้งแล้ว
+- [x] GitHub Account พร้อม
+- [x] Backend API ทำงานปกติ
+- [x] CORS ตั้งค่าถูกต้อง
 
 ### Development Checklist
 
-- [ ] สร้างโปรเจกต์ Next.js
-- [ ] ติดตั้ง dependencies ครบ
-- [ ] สร้าง API layer (`src/lib/api.js`)
-- [ ] สร้าง components ทั้ง 3 ตัว
-- [ ] สร้าง main page
-- [ ] แก้ไข styling
-- [ ] ทดสอบ local ผ่าน
+- [x] สร้างโปรเจกต์ Next.js
+- [x] ติดตั้ง dependencies ครบ
+- [x] สร้าง API layer (`src/lib/api.js`)
+- [x] สร้าง components ทั้ง 3 ตัว
+- [x] สร้าง main page
+- [x] แก้ไข styling
+- [x] ทดสอบ local ผ่าน
 
 ### Deployment Checklist
 
-- [ ] สร้าง GitHub repository
-- [ ] สร้าง workflow file
-- [ ] ตั้งค่า GitHub Pages
-- [ ] ตั้งค่า workflow permissions
-- [ ] อัพเดท API URL ใน workflow
-- [ ] Push code ไป GitHub
-- [ ] Workflow รันสำเร็จ
-- [ ] Website เข้าถึงได้
-- [ ] ทดสอบ features ครบ
+- [x] สร้าง GitHub repository
+- [x] สร้าง workflow file
+- [x] ตั้งค่า GitHub Pages
+- [x] ตั้งค่า workflow permissions
+- [x] อัพเดท API URL ใน workflow
+- [x] Push code ไป GitHub
+- [x] Workflow รันสำเร็จ
+- [x] Website เข้าถึงได้
+- [x] ทดสอบ features ครบ
 
 ### Testing Checklist
 
-- [ ] เปิดหน้าเว็บได้
-- [ ] API Status เป็น "Connected"
-- [ ] เพิ่ม Todo ได้
-- [ ] ลบ Todo ได้
-- [ ] Statistics แสดงถูกต้อง
+- [x] เปิดหน้าเว็บได้
+- [x] API Status เป็น "Connected"
+- [x] เพิ่ม Todo ได้
+- [x] ลบ Todo ได้
+- [x] Statistics แสดงถูกต้อง
 
 
 ---
@@ -1414,8 +1425,34 @@ todo-frontend/
 ## ส่วนที่ 15: คำถามท้ายการทดลอง
 
 1. **CI/CD Pipeline**: อธิบายขั้นตอนใน GitHub Actions workflow
-2. **CORS**: ทำไม Backend ต้อง enable CORS สำหรับ Frontend
+  1.Checkout code: ดึงซอร์สจาก repo
+  2.Set up runtime: ติดตั้งเวอร์ชันของ Node/Python/Java/…
+  Cache dependencies: เร่งความเร็วด้วย cache (npm/pip)
+  3.Install dependencies: npm ci / pip install -r requirements.txt
+  4.Static checks: Lint/Type check (ESLint, mypy, flake8)
+  5.Test: รัน unit/integration tests พร้อม coverage
+  6.Build: สร้างไฟล์พร้อมส่งมอบ (frontend build, Python wheel, Docker image)
+  7.Security/Quality gates (optional): SAST/Dependency scan (e.g., npm audit, pip-audit)
+  8.Artifact: อัปโหลดไฟล์ build เป็น artifact หรือ push Docker image ไปยัง registry
+  9.Deploy: ใช้ secrets (API keys/SSH) เพื่อ deploy ไปยัง dev/staging และค่อย promote ไป production (manual approval ด้วย workflow_dispatch/environments)
 
+2. **CORS**: ทำไม Backend ต้อง enable CORS สำหรับ Frontend
+    เบราว์เซอร์มีกฎ Same-Origin Policy เพื่อความปลอดภัย หน้าจาก https://frontend.example จะ ถูกบล็อก ถ้าพยายาม fetch ไปยัง https://api.example ที่ต่าง origin (ต่าง domain/port/protocol) ยกเว้น เซิร์ฟเวอร์ปลายทางอนุญาตผ่าน CORS
+
+    CORS คืออะไร
+    เป็นชุดของ HTTP headers ที่ ฝั่ง Backend ตอบกลับเพื่อบอกเบราว์เซอร์ว่า:
+    อนุญาต origin ไหนบ้าง (Access-Control-Allow-Origin)
+    อนุญาตวิธี (Access-Control-Allow-Methods: GET/POST/PUT/DELETE/…)
+    อนุญาต headers ใดจาก client (Access-Control-Allow-Headers)
+    จะส่งคุกกี้/credentials ได้ไหม (Access-Control-Allow-Credentials: true)
+    เก็บผล preflight ได้นานแค่ไหน (Access-Control-Max-Age)
+
+    Preflight
+    คำขอที่ไม่เป็น simple request (เช่น มี Content-Type: application/json, ใช้ Authorization header, หรือใช้ PUT/DELETE) เบราว์เซอร์จะยิง OPTIONS ไปก่อนเพื่อถามสิทธิ์ (preflight). ถ้า backend ไม่ตอบ CORS ที่ถูกต้อง คำขอจริงจะไม่ถูกส่ง
+
+
+ถ้า Frontend กับ Backend ต่าง origin → ต้อง enable CORS ที่ Backend
+ถ้า อยู่ origin เดียวกัน (เช่นเสิร์ฟ frontend และ API จากโดเมนและพอร์ตเดียวกัน) → ปกติไม่ต้อง CORS
 
 ## ส่วนที่ 16: แหล่งข้อมูลเพิ่มเติม
 
@@ -1444,8 +1481,8 @@ todo-frontend/
 
 ## สรุป
 **URL ของนักศึกษาคือ**:
-- Frontend: `https://your-username.github.io/todo-frontend/`
-- Backend: `https://your-backend.onrender.com`
+- Frontend: `https://phuwishpk.github.io/todo-frontend/`
+- Backend: `https://flask-todo-cicd-gsl2.onrender.com`
 
 ---
 

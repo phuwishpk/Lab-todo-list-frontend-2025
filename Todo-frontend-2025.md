@@ -1045,6 +1045,8 @@ npm run dev
 
 เปิดเบราว์เซอร์ที่ `http://localhost:3000`
 
+หรือเพิ่มเป็น `http://localhost:3000/todo-frontend/`
+
 ### ขั้นตอนที่ 8.3: ทดสอบ Features
 
 ทดสอบว่าทุกอย่างทำงานได้:
@@ -1062,6 +1064,16 @@ npm run dev
 # บันทึกรูปผลการทดลองที่นี่
 ``` 
 
+![alt text](image.png)
+
+![alt text](image-1.png)
+
+![alt text](image-2.png)
+
+![alt text](image-4.png)
+
+![alt text](image-3.png)
+
 ### ขั้นตอนที่ 8.4: Test Build
 
 ```bash
@@ -1076,6 +1088,7 @@ npx serve@latest out
 ```
 
 เปิด `http://localhost:3000` และทดสอบอีกครั้ง
+เเก้เพิ่มเป็น `http://localhost:3000/todo-frontend/`
 
 ---
 
@@ -1175,6 +1188,7 @@ git push origin main
 ```bash
 # บันทึกรูปผลการ Deploy ที่นี่
 ```
+![alt text](image-5.png)
 
 ### ขั้นตอนที่ 10.3: หา URL ของ Website
 
